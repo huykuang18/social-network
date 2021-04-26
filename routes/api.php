@@ -27,6 +27,11 @@ Route::group(['prefix' => 'auth', 'namespace' => 'App\Http\Controllers',],functi
 
     Route::post('post/like','PostLikeController@like');
     Route::delete('post/dislike/{id}','PostLikeController@dislike');
+
+    Route::post('friend/add','FriendController@addFriend');
+    Route::put('friend/update/{id}','FriendController@updateStatus');
+    Route::delete('unfriend/{id}','FriendController@unfriend');
+    Route::get('friendship/{id}','FriendController@showFriendship');
 });
 
 Route::group(['middleware' => 'jwt.auth', 'namespace' => 'App\Http\Controllers'], function () {
