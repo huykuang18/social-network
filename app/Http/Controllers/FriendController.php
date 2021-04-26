@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Repositories\Friend\FriendRepository;
 use Illuminate\Http\Request;
 
-class FriendController extends Controller
+class FriendController extends BaseController
 {
     protected $friendRepository;
 
@@ -21,11 +21,7 @@ class FriendController extends Controller
             'friend_id' => $request->friend_id,
         ]);
 
-        return response()->json([
-            'status' => 200,
-            'message' => "has sent an invitation",
-            'data' => $friend
-        ]);
+        return $this->sendSuccess('has sent an invitation',$friend,200);
     }
 
     public function updateStatus(Request $request, $id)
@@ -33,29 +29,21 @@ class FriendController extends Controller
         $this->friendRepository->update($id,[
             'status' => $request->status
         ]);
-
-        return response()->json([
-            'status' => 200,
-            'message' => 'Friend status has updated'
-        ]);
+        
+        return $this->sendSuccess('Friend status has updated',[],201);
     }
 
     public function unfriend($id)
     {
         $this->friendRepository->delete($id);
 
-        return response()->json([
-            'status' => 200,
-            'message' => 'Unfriend successed'
-        ]);
+        return $this->sendSuccess('Unfriend successfully',[],200);
     }
 
     public function showFriendship($id)
     {
         $friend = $this->friendRepository->find($id);
 
-        return response()->json([
-            'friendship' => $friend
-        ]);
+        return $this->sendSuccess('Friendship',$friend,200);
     }
 }
