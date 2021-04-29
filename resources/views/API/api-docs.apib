@@ -1,0 +1,283 @@
+FORMAT: 1A
+HOST: http://social.nt:88
+# Group Users
+User is a simple API that handles user-related operations
+## Register [/api/auth/register]
+You can create your own account. It takes a JSON object that holds your personal information.
+### Register new user [POST]
+
++ Request
+
+        {
+            "name" : "Nguyen Quang Huy",
+            "email" : "huynq@gmail.cpm",
+            "password" : "123456"
+        }
+
++ Response 200 (application/json)
+
+        {
+            "message": "User created successfully",
+            "data": {
+                "name": "Nguyen Quang Huy",
+                "email": "huynq@gmail.cpm",
+                "updated_at": "2021-04-29T04:09:34.000000Z",
+                "created_at": "2021-04-29T04:09:34.000000Z",
+                "id": 24
+            }
+        }
+
++ Response 400 (application/json)
+
+## Login [/api/auth/login]
+You can login with your account created. It takes a JSON object that holds email and password.
+### Login [POST]
+
++ Request
+
+        {
+            "email" : "huynq@gmail.cpm",
+            "password" : "123456"
+        }
+
++ Response 200 (application/json)
+
+        {
+            "message": "Token is created",
+            "data": {
+                "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9zb2NpYWwubnQ6ODhcL2FwaVwvYXV0aFwvbG9naW4iLCJpYXQiOjE2MTk2NzAwMTAsImV4cCI6MTYxOTY3MzYxMCwibmJmIjoxNjE5NjcwMDEwLCJqdGkiOiJwRTlvZml1Z3l3S0JwVTN3Iiwic3ViIjoyNCwicHJ2IjoiMjNiZDVjODk0OWY2MDBhZGIzOWU3MDFjNDAwODcyZGI3YTU5NzZmNyJ9.X2WRwTgtTG7yolPYHAGVeChbdPTeFZDpqqSEloB_bsI"
+            }
+        }
+
++ Response 422 (application/json)
+
+        {
+            "message": "invalid_email_or_password",
+            "data": []
+        }
+
+## User Information [/api/user-info?token=...]
+### Get the user's login information  [GET]
++ Response 200 (application/json)
+
+        {
+            "message": "Information",
+            "data": {
+                "id": 24,
+                "name": "Nguyen Quang Huy",
+                "email": "huynq@gmail.cpm",
+                "email_verified_at": null,
+                "api_token": null,
+                "created_at": "2021-04-29T04:09:34.000000Z",
+                "updated_at": "2021-04-29T04:09:34.000000Z"
+            }
+        }
+
++ Response 400 (application/json)
+
+# Group Posts
+Post is a simple API that handles status post operations
+## Create [/api/auth/post/create]
+
+### Create new post [POST]
+
++ Request
+
+        {
+            "user_id" : "5",
+            "content" : "This is my status",
+            "pricivy" : "1"
+        }
+
++ Response 200 (application/json)
+
+        {
+            "message": "Post created successfully",
+            "data": {
+                "user_id": "5",
+                "content": "This is my status",
+                "share_id": null,
+                "pricivy": "1",
+                "updated_at": "2021-04-29T08:37:07.000000Z",
+                "created_at": "2021-04-29T08:37:07.000000Z",
+                "id": 11
+            }
+        }
+
++ Response 400 (application/json)
+
+## Update [/api/auth/post/edit/{id}]
+
+### Update post [PUT]
+
++ Request
+
+        {
+            "user_id" : "5",
+            "content" : "This is my status edited",
+            "pricivy" : "1"
+        }
+
++ Response 200 (application/json)
+
+        {
+            "message": "Post updated successfully",
+            "data": true
+        }
+
++ Response 400 (application/json)
+
+## Post's detail [/api/auth/post/detail/{id}]
+
+### Get post detail [GET]
+
++ Response 200 (application/json)
+
+        {
+            "message": "Information",
+            "data": {
+                "id": 11,
+                "user_id": 5,
+                "content": "This is my status edited",
+                "share_id": null,
+                "pricivy": 1,
+                "created_at": "2021-04-29T08:37:07.000000Z",
+                "updated_at": "2021-04-29T08:41:49.000000Z"
+            }
+        }
+
++ Response 400 (application/json)
+
+## Delete post [/api/auth/post/delete/{id}]
+
+### Delete post [DELETE]
+
++ Response 200 (application/json)
+
+        {
+            "message": "Post number 11 has deleted",
+            "data": []
+        }
+
++ Response 400 (application/json)
+
+# Group Friends
+Friend is a simple API that handles friendship between users
+## Add friend [/api/auth/friend/add]
+
+### Create new relation [POST]
+
++ Request
+
+        {
+            "user_id" : "1",
+            "friend_id" : "4"
+        }
+
++ Response 200 (application/json)
+
+        {
+            "message": "has sent an invitation",
+            "data": {
+                "user_id": "1",
+                "friend_id": "4",
+                "updated_at": "2021-04-29T08:54:33.000000Z",
+                "created_at": "2021-04-29T08:54:33.000000Z",
+                "id": 3
+            }
+        }
+
++ Response 400 (application/json)
+
+## Update [/api/auth/friend/update/{id}]
+
+### Update friend's status [PUT]
+
++ Request
+
+        {
+            "status" : "1"
+        }
+
++ Response 200 (application/json)
+
+        {
+            "message": "Friend status has updated",
+            "data": []
+        }
+
++ Response 400 (application/json)
+
+## Friendship [/api/auth/friendship/{id}]
+
+### Get Friendship [GET]
+
++ Response 200 (application/json)
+
+        {
+            "message": "Friendship",
+            "data": {
+                "id": 1,
+                "user_id": 1,
+                "friend_id": 2,
+                "status": 1,
+                "created_at": "2021-04-26T17:59:31.000000Z",
+                "updated_at": "2021-04-26T18:04:01.000000Z"
+            }
+        }
+
++ Response 400 (application/json)
+
+## Unfriend [/api/auth/unfriend/{id}]
+
+### Unfriend [DELETE]
+
++ Response 200 (application/json)
+
+        {
+            "message": "Unfriend successfully",
+            "data": []
+        }
+
++ Response 400 (application/json)
+
+# Group Postlikes
+
+## Like post [/api/auth/post/like]
+
+### User like post [POST]
+
++ Request
+
+        {
+            "user_id" : "1",
+            "post_id" : "8"
+        }
+
++ Response 200 (application/json)
+
+        {
+            "message": "You liked this post",
+            "data": {
+                "post_id": "8",
+                "user_id": "1",
+                "updated_at": "2021-04-29T09:14:29.000000Z",
+                "created_at": "2021-04-29T09:14:29.000000Z",
+                "id": 9
+            }
+        }
+
++ Response 400 (application/json)
+
+## Dislike post [/api/auth/post/dislike/{id}]
+
+### User dislike post [DELETE]
+
++ Response 200 (application/json)
+
+        {
+            "message": "Dislike this post",
+            "data": []
+        }
+
++ Response 400 (application/json)
