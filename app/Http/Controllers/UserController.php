@@ -42,7 +42,7 @@ class UserController extends BaseController
         } catch (JWTException $e) {
             return $this->sendSuccess('failed_to_create_token',[],500);
         }
-        return $this->sendSuccess('Token is created',compact('token'),200);
+        return $this->sendSuccess('Login successfully!',compact('token'),200);
     }
 
     public function getUserInfo(Request $request)
