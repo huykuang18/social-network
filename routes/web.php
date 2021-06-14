@@ -20,3 +20,6 @@ Route::get('/login', function () {
 Route::get('/api-docs', function () {
     return view('API.api-docs');
 });
+Route::get('/register', function () {
+    return view('register');
+});

@@ -18,7 +18,6 @@ use Illuminate\Support\Facades\Route;
 Route::group(['prefix' => 'auth', 'namespace' => 'App\Http\Controllers',],function(){
     Route::post('register', 'UserController@register');
     Route::post('login', 'UserController@login');
-    Route::post('logout', 'UserController@logout');
 
     Route::post('post/create','PostController@createPost');
     Route::put('post/edit/{id}','PostController@editPost');
@@ -36,4 +35,5 @@ Route::group(['prefix' => 'auth', 'namespace' => 'App\Http\Controllers',],functi
 
 Route::group(['middleware' => 'jwt.auth', 'namespace' => 'App\Http\Controllers'], function () {
     Route::get('user-info', 'UserController@getUserInfo');
+    Route::get('logout', 'UserController@logout');
 });
